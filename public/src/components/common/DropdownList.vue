@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div class="nowShowPeriod" @click.stop="$emit('update:toggle',!toggle)">
-            <slot name="showContent"></slot>
+    <div class="dropdownListGroup">
+        <div class="buttonGroup" @click.stop="$emit('update:toggle',!toggle)">
+            <slot name="showContent" class="title"></slot>
             <i class="fas fa-caret-down"></i>
         </div>
         <ul class="periodList listStyle" :class="{ active : toggle }">
@@ -15,23 +15,34 @@ export default {
 }
 </script>
 <style lang="scss">
-    .listStyle{
-        position: absolute;
-        right: 0;
-        top: 30px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.3);
-        display: none;
-        color: #000;
-        &.active{
-            display: inline-block;
+    .dropdownListGroup{
+        position: relative;
+        .buttonGroup{
+            display: flex;
+            justify-content: flex-end;
+            cursor: pointer;
+            .title{
+                margin: 0 10px 0 0;
+            }
         }
-        li{
-            background-color: #fff;
-            padding: 10px;
-            &:hover{
-                background-color: #000;
-                color: #fff;
-                cursor: pointer;
+        .listStyle{
+            position: absolute;
+            right: 0;
+            top: 30px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            display: none;
+            color: #000;
+            &.active{
+                display: inline-block;
+            }
+            li{
+                background-color: #fff;
+                padding: 10px;
+                &:hover{
+                    background-color: #000;
+                    color: #fff;
+                    cursor: pointer;
+                }
             }
         }
     }

@@ -39,14 +39,16 @@
             <li class="card">
                 <div class="titleGroup">
                     <i class="fas fa-money-bill-alt"></i>
-                    <h3>NET ICOME</h3>
+                    <h3>NET INCOME</h3>
                 </div>
                 <p class="number">54540</p>
             </li>
         </ul>
         <div class="activityDiagram card">
             <h3>Activity</h3>
-
+            <div class="chart">
+                <VeLine :data="chartData"></VeLine>
+            </div>
         </div>
         <div class="bottomGroup">
             <div class="webGroup card">
@@ -97,6 +99,7 @@
     </div>
 </template>
 <script>
+import VeLine from 'v-charts/lib/line.common'
 export default {
     data() {
         return {
@@ -161,8 +164,22 @@ export default {
                     price : 1600,
                     pic : 'https://picsum.photos/1500/1000?image=2'
                 },
-            ]
+            ],
+            chartData: {
+                columns: ['date', 'Total revenue','Total cost','New Income'],
+                rows: [
+                    { 'date': '6 JUN', 'Total revenue': 1231 , 'Total cost': 7123 , 'New Income' :3123 },
+                    { 'date': '7 JUN', 'Total revenue': 1223 , 'Total cost': 1231 , 'New Income' : 7123},
+                    { 'date': '8 JUN', 'Total revenue': 2123 , 'Total cost': 1223 , 'New Income' : 1231},
+                    { 'date': '9 JUN', 'Total revenue': 4123 , 'Total cost': 2123 , 'New Income' : 1223},
+                    { 'date': '10 JUN', 'Total revenue': 3123 , 'Total cost':4123  , 'New Income' :2123 },
+                    { 'date': '11 JUN', 'Total revenue': 7123 , 'Total cost': 3123 , 'New Income' : 4123 }
+                ]
+            }
         }
+    },
+    components: {
+        VeLine
     },
     computed: {
         nowPeriod() {
@@ -217,15 +234,6 @@ export default {
                 }
                 .datePeriod{
                     margin: 0 0 0 10px;
-                    position: relative;
-                    .nowShowPeriod{
-                        display: flex;
-                        justify-content: flex-end;
-                        cursor: pointer;
-                        .title{
-                            margin: 0 10px 0 0;
-                        }
-                    }
                 }
             }
         }

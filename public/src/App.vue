@@ -62,6 +62,33 @@ export default {
         }
         text-decoration: none;
     }
+    button{
+        padding: 10px;
+        background-color:#7ED321;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+    }
+    table{
+        width: 100%;
+        margin: 10px 0 0 0;
+        th,td{
+            padding: 10px;
+        }
+        thead{
+            th{
+                background-color: #fff;
+
+            }
+        }
+        tbody{
+            tr{
+                &:nth-child(even){
+                    background-color: #EBEBEB;
+                }
+            }
+        }
+    }
     .navigation{
         background-color: #000;
         color: #fff;

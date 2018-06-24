@@ -8,11 +8,41 @@
                     @clickLi="clickSelectList"
                 >
                     <checkbox slot="showContent" :selected="nowSelectFilter"></checkbox>
-                </dropdownList>
+                </dropdownList> 
             </div>
             <div class="rightGroup">
-
+                <dropdownList 
+                    :list="selectionList"
+                    @clickLi="clickSectionList"
+                >
+                    <p slot="showContent">EDIT SECTION</p>
+                </dropdownList> 
             </div>
+        </div>
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th v-for="selection in selectionList" v-if="selection.value">{{ selection.name }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="order in orderList">
+                        <td v-for="(orderItem,key) in order" v-if="!['product','status'].includes(key)">{{ orderItem }}</td>
+                        <td v-else-if="key == 'product'">
+                            <ul>
+                                <li v-for="product in orderItem" class="productIndfo">
+                                    <p class="name">{{ product.name }}</p>
+                                    <p class="price">{{ product.price }}</p>
+                                </li>
+                            </ul>
+                        </td>
+                        <td v-else-if="key == 'status'">
+                            <button class="statusButton">{{ orderItem }}</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -29,6 +59,47 @@ export default {
                 { name : 'Unpaid' , value : false },
                 { name : 'Shipping' , value : false },
                 { name : 'Done' , value : false },
+            ],
+            selectionList : [
+                { name : 'Order Id' , value : false },
+                { name : 'Customer' , value : true },
+                { name : 'Product list' , value : true },
+                { name : 'Total' , value : true },
+                { name : 'Add to chart' , value : true },
+                { name : 'Check-out' , value : true },
+                { name : 'Address' , value : true },
+                { name : 'Phone' , value : false },
+                { name : 'Email' , value : false },
+                { name : 'Status' , value : true },
+            ],
+            orderList: [
+                { 
+                    name : 'Ian' , 
+                    product : [{ name : 'vest' , price : 1400 },{ name : 'fusce' , price : 800 }],
+                    total : 2200,
+                    chartTime : '2018/06/08 13:390',
+                    checkTime : '2018/06/08 13:390',
+                    address : 'Winder Drives',
+                    status : 'Paid'
+                },
+                { 
+                    name : 'Ian' , 
+                    product : [{ name : 'vest' , price : 1400 },{ name : 'fusce' , price : 800 }],
+                    total : 2200,
+                    chartTime : '2018/06/08 13:390',
+                    checkTime : '2018/06/08 13:390',
+                    address : 'Winder Drives',
+                    status : 'Paid'
+                },
+                { 
+                    name : 'Ian' , 
+                    product : [{ name : 'vest' , price : 1400 },{ name : 'fusce' , price : 800 }],
+                    total : 2200,
+                    chartTime : '2018/06/08 13:390',
+                    checkTime : '2018/06/08 13:390',
+                    address : 'Winder Drives',
+                    status : 'Paid'
+                },
             ]
         }
     },
@@ -49,6 +120,9 @@ export default {
             this.selectList[i].value = true;
             this.$store.state.showFilterList = false;
         },
+        clickSectionList(i) {
+            this.selectionList[i].value = !this.selectionList[i].value;
+        },
         vanishDropDown() {
             this.$store.state.showFilterList = false;
         }
@@ -56,7 +130,31 @@ export default {
 }
 </script>
 <style lang="scss">
-
+    .orderGroup{
+        .header{
+            display: flex;
+            justify-content: space-between;
+            .dropdownListGroup{
+                .listStyle{
+                    left: 0;
+                    right: auto;
+                }
+            }
+        }
+        .content{
+            table{
+                tbody{
+                    li.productIndfo{
+                        padding: 5px 0;
+                        p.price{
+                            font-size: 12px;
+                            color: #9b9b9b
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
 
 
